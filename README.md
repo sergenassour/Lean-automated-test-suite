@@ -80,20 +80,6 @@ use: {
 ```bash
 npx playwright test
 ```
-### Run a single browser
-```bash
-npx playwright test --project=chromium
-# or: --project=firefox  --project=webkit
-```
-### Headed (see the browser)
-```bash
-npx playwright test --headed
-```
-### Target a file or test by title
-```bash
-npx playwright test tests/checkout.spec.ts
-npx playwright test -g "select 3 random items"
-```
 
 ---
 
