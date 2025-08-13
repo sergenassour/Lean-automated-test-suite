@@ -62,16 +62,6 @@ npm i
 # 2) install Playwright browsers + OS deps
 npx playwright install --with-deps
 ```
-If you prefer getByTestId('...') selectors everywhere, add this to playwright.config.ts:
-```ts
-use: {
-  baseURL: 'https://www.saucedemo.com',
-  testIdAttribute: 'data-test',   // SauceDemo uses data-test=..., not data-testid
-  trace: 'retain-on-failure',
-  screenshot: 'only-on-failure',
-  video: 'retain-on-failure',
-}
-```
 
 ---
 
