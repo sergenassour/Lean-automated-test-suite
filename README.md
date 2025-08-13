@@ -8,13 +8,6 @@ The brief asks specifically for a **successful checkout scenario** (no negative 
 
 ---
 
-## Deliverables Covered
-- Source code in a Git repository  
-- **Documentation** explaining setup & execution (this file)  
-- **Resources/dependencies** required to run the tests (below)  
-
----
-
 ## Tech Stack & Dependencies
 - **Node.js** ≥ 18
 - **Playwright Test** (`@playwright/test`)
@@ -35,25 +28,7 @@ These meet the brief’s requirement to use JS/TS with **Playwright**.
 
 ---
 
-## Project Structure
-```text
-src/
-  pages/
-    loginPage.ts
-    inventoryPage.ts
-    cartPage.ts
-    checkoutPage.ts
-tests/
-  checkout.spec.ts
-playwright.config.ts
-tsconfig.json
-package.json
-README.md
-```
-
----
-
-## Setup (First Run)
+## Setup
 
 ```bash
 # 1) install node dependencies
