@@ -1,0 +1,27 @@
+{
+  "name": "automated-test-suite-lean",
+  "version": "1.0.0",
+  "description": "Automated Test Suite Development Assignment",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergenassour/automated-test-suite-lean.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sergenassour/automated-test-suite-lean/issues"
+  },
+  "homepage": "https://github.com/sergenassour/automated-test-suite-lean#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@typescript-eslint/eslint-plugin": "^8.39.1",
+    "@typescript-eslint/parser": "^8.39.1",
+    "eslint": "^9.33.0",
+    "typescript": "^5.9.2"
+  }
+}

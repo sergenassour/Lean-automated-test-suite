@@ -1,0 +1,134 @@
+# SauceDemo – Automated Test Suite (Playwright + TypeScript)
+
+## Overview
+This project automates the **happy-path checkout** on SauceDemo: login → select **3 random items** → add to cart → checkout → verify success.  
+The brief asks specifically for a **successful checkout scenario** (no negative tests), using **JS/TS** with Playwright, with **assertions** and **reporting**.
+
+**Live site:** https://www.saucedemo.com/
+
+---
+
+## Deliverables Covered
+- Source code in a Git repository  
+- **Documentation** explaining setup & execution (this file)  
+- **Resources/dependencies** required to run the tests (below)  
+
+---
+
+## Tech Stack & Dependencies
+- **Node.js** ≥ 18
+- **Playwright Test** (`@playwright/test`)
+- **TypeScript**
+
+These meet the brief’s requirement to use JS/TS with **Playwright**.
+
+**Dev dependencies (example):**
+```json
+{
+  "@playwright/test": "^1.46.0",
+  "typescript": "^5.4.0",
+  "eslint": "^8.57.0",
+  "@typescript-eslint/eslint-plugin": "^7.7.0",
+  "@typescript-eslint/parser": "^7.7.0"
+}
+```
+
+---
+
+## Project Structure
+```text
+src/
+  pages/
+    loginPage.ts
+    inventoryPage.ts
+    cartPage.ts
+    checkoutPage.ts
+tests/
+  checkout.spec.ts
+playwright.config.ts
+tsconfig.json
+package.json
+README.md
+```
+
+---
+
+## Setup (First Run)
+
+```bash
+# 1) install node dependencies
+npm i
+
+# 2) install Playwright browsers + OS deps
+npx playwright install --with-deps
+```
+If you prefer getByTestId('...') selectors everywhere, add this to playwright.config.ts:
+```ts
+use: {
+  baseURL: 'https://www.saucedemo.com',
+  testIdAttribute: 'data-test',   // SauceDemo uses data-test=..., not data-testid
+  trace: 'retain-on-failure',
+  screenshot: 'only-on-failure',
+  video: 'retain-on-failure',
+}
+```
+
+---
+
+## How to Run
+### Run the full suite (headless, all browsers)
+```bash
+npx playwright test
+```
+### Run a single browser
+```bash
+npx playwright test --project=chromium
+# or: --project=firefox  --project=webkit
+```
+### Headed (see the browser)
+```bash
+npx playwright test --headed
+```
+### Target a file or test by title
+```bash
+npx playwright test tests/checkout.spec.ts
+npx playwright test -g "select 3 random items"
+```
+
+---
+
+## Reporting & Debug Artifacts
+The brief requires clear reporting. We use Playwright’s built-in HTML report, traces, screenshots, and videos on failures.
+It automatically opens the HTML report however you could always run it yourself using,
+```bash
+npx playwright show-report
+```
+
+---
+
+## Test Coverage (End-to-End Flow)
+
+1. **Login**
+   - Navigate to `/` (via `baseURL`).
+   - Fill **username** `standard_user` and **password** `secret_sauce`.
+   - Click **Login** and assert URL ends with `/inventory.html`.
+
+2. **Select 3 Random Items**
+   - Query all items via `.inventory_item`.
+   - Randomly pick **3 unique** indices (Set-based selection).
+   - For each picked item:
+     - Click **Add to cart**.
+     - Assert the corresponding **Remove** button (e.g., `[data-test^="remove-"]`) is visible.
+
+3. **Cart & Checkout**
+   - Open the cart (shopping cart icon) and assert **3** items are present.
+   - Click **Checkout** and assert URL ends with `/checkout-step-one.html`.
+   - Fill **First Name**, **Last Name**, **Postal Code** and click **Continue**.
+   - Assert URL ends with `/checkout-step-two.html`.
+   - Assert the **overview** lists **3** items.
+
+4. **Finish**
+   - Click **Finish** and assert URL ends with `/checkout-complete.html`.
+   - Assert success text **“Thank you for your order!”** is visible.
+
+> This coverage implements the required **successful checkout** (happy path) scenario only, with appropriate assertions at each step.
